@@ -62,6 +62,7 @@ const App = () => {
         result.comments.length == 0 ? setComments(['Made by Shypt Solution, Visit CodingKaro.in for more.']) : setComments(result.comments);
       }
       if(!result.comments)setComments(['Made by Shypt Solution, Visit CodingKaro.in for more.']) 
+      if(result.tagPerson)
       setTagPerson(result.tagPerson);
       if(result.username && result.username.length>0) setUserName(result.username);
       setKey((prevKey)=>prevKey+1);

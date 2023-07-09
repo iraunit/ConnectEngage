@@ -8,8 +8,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         if (result.comments && Array.isArray(result.comments)) {
           comments = result.comments
         }
-        if(result.tagPerson)
-        tagPerson = result.tagPerson;
+        if(result.tagPerson!=undefined)tagPerson = result.tagPerson;
         if(result.username)accountName = result.username
         replyToComments();
       });
