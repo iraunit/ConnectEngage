@@ -108,3 +108,7 @@ dist
 
 # mainfest
 mainfest.json
+
+.idea
+
+.DS_Store
