@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CHECK_AUTH_STATUS_COMMAND } from '../util/constants'
+import Navbar from './navbar'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -17,7 +18,12 @@ const Home = () => {
     )
   }, [navigate])
 
-  return <div>Home</div>
+  return (
+    <div>
+      <Navbar />
+      Home
+    </div>
+  )
 }
 
 export default Home

@@ -1,4 +1,10 @@
-import { CHECK_AUTH_STATUS_COMMAND, EXPIRY, TOKEN, UUID } from '../util/constants'
+import {
+  CHECK_AUTH_STATUS_COMMAND,
+  EXPIRY, LOGOUT_COMMAND,
+  SAVE_CREDENTIALS_COMMAND,
+  TOKEN,
+  UUID,
+} from '../util/constants'
 
 function DeleteAuthData(callback) {
   chrome.storage.local.remove([TOKEN, EXPIRY], function () {
@@ -30,6 +36,28 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.command === CHECK_AUTH_STATUS_COMMAND) {
     checkAuthenticationStatus(function (isAuthenticated) {
       sendResponse(isAuthenticated)
+    })
+    return true
+  } else if (request.command === SAVE_CREDENTIALS_COMMAND) {
+    chrome.storage.local.set(
+      {
+        uuid: request.data.uuid,
+        token: request.data.token,
+        expiry: request.data.expiry,
+        email: request.data.email,
+      },
+      function () {
+        if (chrome.runtime.lastError) {
+          console.error('Error saving data:', chrome.runtime.lastError)
+        } else {
+          sendResponse(true)
+        }
+      },
+    )
+    return true
+  } else if (request.command === LOGOUT_COMMAND) {
+    DeleteAuthData(function (isDeleted) {
+      sendResponse(isDeleted)
     })
     return true
   }
